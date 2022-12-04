@@ -66,3 +66,17 @@ void rehashIfNeeded(){
   delete[] buckets;
   buckets = new_buckets;
 }
+
+
+
+int main()
+{
+    
+    
+    
+    
+    return 0;
+
+
+
+}
