@@ -11,11 +11,15 @@ class unordered_map{
     int bucket_size;
     int total_elements;
     float max_load_factor;
-}
+
+public: 
+
+
+
 
 int hash(int key) {
-  int hashed_key = strongHashingFunction(key)
-  return hashed_key % bucket_size;
+  int hashed_key = strongHashingFunction(key);
+  return hashed_key;
 }
 
 int strongHashingFunction(int key){
@@ -59,15 +63,15 @@ void rehashIfNeeded(){
   bucket_size *= 2;
   auto new_buckets = new list<pair<int,int>>[bucket_size];
   for(int i = 0; i < bucket_size/2; i++){
-    for(auto& kv_itr: buckets[i]){
-      new_buckets[hash(kv_itr->first)].push_back(*kv_itr);
+    for(auto& itr: buckets[i]){
+      new_buckets[hash(itr->first)].push_back(*itr);
     }
   }
   delete[] buckets;
   buckets = new_buckets;
 }
 
-
+};
 
 int main()
 {
