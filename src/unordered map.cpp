@@ -2,12 +2,12 @@
 #include <string>
 #include <sstream>
 #include <iostream>
-
-
+#include <list>
+using namespace std;
 
 class unordered_map{
   private:
-    list<pair<int,int>> *buckets;
+    list <pair<int,int>> *buckets;
     int bucket_size;
     int total_elements;
     float max_load_factor;
