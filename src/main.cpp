@@ -1,11 +1,12 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
-#include "orderedMap.cpp"
+#include "orderedMap.h"
 
 using namespace std;
 
-string MenuAndInput() {
+string MenuAndInput()
+{
     string _input;
 
     cout << "_________________________________________________________________________________" << endl;
@@ -23,7 +24,8 @@ string MenuAndInput() {
     return _input;
 }
 
-int main() {
+int main()
+{
 
     /*
     AVLTree MPGTree;
@@ -54,23 +56,32 @@ int main() {
     }
     */
 
-
-
     string input;
+    AVLTree MPGTree;
+    AVLTree HPTree;
+    MPGTree.insertCar("M", "8");
+    MPGTree.insertCar("L", "9");
+    MPGTree.insertCar("t", "10");
+    MPGTree.insertCar("G", "3");
+    MPGTree.insertCar("Y", "2");
+    MPGTree.insertCar("A", "1");
+
 
     input = MenuAndInput();
 
-    if(input == "mpg") {
+    if (input == "mpg")
+    {
         cout << "calling mpg" << endl;
-        MPGTree.printVehicleComparison(input);
+        MPGTree.printVehicleComparison(5);
     }
-
-    else if(input == "hp") {
+    else if (input == "hp")
+    {
         cout << "calling hp" << endl;
-        HPTree.printVehicleComparison(input);
+        // HPTree.printVehicleComparison(stoi(input));
     }
 
-    else {
+    else
+    {
         cout << "Your input was not recognized." << endl;
     }
 
