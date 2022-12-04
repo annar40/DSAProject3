@@ -13,13 +13,13 @@ class AVLTree
 private:
     struct TreeNode
     {
-        string ID;
+        string carData;
         string name;
         int height;
         TreeNode *left;
         TreeNode *right;
         // constructor
-        TreeNode(string name, string id, int height) : ID(id), name(name), height(height), left(nullptr), right(nullptr) {}
+        TreeNode(string name, string id, int height) :carData(id), name(name), height(height), left(nullptr), right(nullptr) {}
     };
 
     // Tree Attributes
@@ -27,9 +27,8 @@ private:
     TreeNode *root = nullptr;
 
     // Tree functions
-    TreeNode *insert(TreeNode *root, string name, string gatorID);
+    TreeNode *insert(TreeNode *root, string vehicleName, string carData);
 
-    TreeNode *searchByIDHelper(TreeNode *root, string gatorID);
 
     TreeNode *rotateLeft(TreeNode *node);
     TreeNode *rotateRight(TreeNode *node);
@@ -46,30 +45,30 @@ public:
     ~AVLTree() { delete root; }
     void printInorder();
     void printBackwards();
-    void insertStudent(string name, string gatorID);
-    void searchStudentID(string gatorID);
+    void insertStudent(string name, string carData);
+
 };
 
-AVLTree::TreeNode *AVLTree::insert(TreeNode *root, string name, string gatorID)
+AVLTree::TreeNode *AVLTree::insert(TreeNode *root, string vehicleName, string carData)
 {
-    long IDNumber = stol(gatorID);
+    long userCarData = stol(carData);
     if (root == nullptr)
     {
         cout << "successful\n";
-        return new TreeNode(name, gatorID, 0);
+        return new TreeNode(vehicleName, carData, 0);
     }
-    if (IDNumber == stol(root->ID))
+    if (userCarData == stol(root->carData))
     {
         cout << "unsuccessful\n";
         return root;
     }
-    else if (IDNumber < stol(root->ID))
+    else if (userCarData < stol(root->carData))
     {
-        root->left = insert(root->left, name, gatorID);
+        root->left = insert(root->left, vehicleName, carData);
     }
     else
     {
-        root->right = insert(root->right, name, gatorID);
+        root->right = insert(root->right, vehicleName, carData);
     }
 
     root->height = 1 + maxHeightOfChildren(root);
@@ -202,9 +201,9 @@ void print(vector<string> names)
     }
 }
 
-void AVLTree::insertStudent(string name, string gatorID)
+void AVLTree::insertStudent(string vehicleName, string carData)
 {
-    this->root = insert(this->root, name, gatorID);
+    this->root = insert(this->root, vehicleName, carData);
 }
 void AVLTree::helperInorder(AVLTree::TreeNode *helpRoot, vector<string> &inorder)
 {
@@ -213,6 +212,7 @@ void AVLTree::helperInorder(AVLTree::TreeNode *helpRoot, vector<string> &inorder
     else
     {
         helperInorder(helpRoot->left, inorder);
+        //if statement here? if(helpRoot->carData >= userInput) : push back next three
         inorder.push_back(helpRoot->name);
         helperInorder(helpRoot->right, inorder);
     }
@@ -240,8 +240,6 @@ void AVLTree ::printBackwards()
     helperInorder(this->root, namesBackwards);
     print(namesBackwards);
 }
-int orderedMap()
-{
-
-    return -1;
-}
+// overall print function - uses inorder and backwards to print cars
+//backwards: if car data == user data, print following three cars 
+//inorder: if car data == user data, print following three cars
