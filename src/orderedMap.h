@@ -197,7 +197,29 @@ void print(vector<string> names)
             }
             else
             {
-                cout << endl;
+                cout << " ";
+            }
+        }
+    }
+}
+void printLessThanVals(vector<string> names)
+{
+    if (names.size() == 0)
+    {
+        cout << "No vehicles found";
+    }
+    else
+    {
+        for (int i = names.size()-1; i >= 0; i--)
+        {
+            cout << names[i];
+            if (i != names.size() - 1)
+            {
+                cout << ", ";
+            }
+            else
+            {
+                cout << " ";
             }
         }
     }
@@ -249,8 +271,8 @@ void AVLTree ::printBackwards(int userInput)
 {
     vector<string> namesBackwards;
     int counter = 0;
-    helperInorder(this->root, namesBackwards, counter, userInput);
-    print(namesBackwards);
+    helperBackwards(this->root, namesBackwards, counter, userInput);
+    printLessThanVals(namesBackwards);
 }
 void AVLTree::printVehicleComparison(int userInput)
 {
