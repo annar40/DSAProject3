@@ -36,10 +36,10 @@ class HashMap {
     
   
 public:
-    HashMap()
+    HashMap(int cap)
     {
         
-        capacity = 20;
+        capacity = cap;
         size = 0;
         arr = new HashNode<K, V>*[capacity];
   
@@ -50,6 +50,7 @@ public:
         
         
     }
+    
     
     int hashCode(K key)
     {
@@ -63,11 +64,18 @@ public:
   
         
         int hashIndex = hashCode(key);
-  
+
+        float loadFactor = (float)size / (float)capacity;
+        float maxLoad = 0.75f;
+        
+        
+        if (loadFactor >= maxLoad){
+            rehash();
+            return;
+        }
+
         // find next free space
-        while (arr[hashIndex] != NULL
-               && arr[hashIndex]->key != key
-               && arr[hashIndex]->key != -1) {
+        while (arr[hashIndex] != NULL && arr[hashIndex]->key != key ) {
             hashIndex++;
             hashIndex %= capacity;
         }
@@ -77,6 +85,25 @@ public:
         if (arr[hashIndex] == NULL|| arr[hashIndex]->key == -1)
             size++;
         arr[hashIndex] = temp;
+        
+    }
+    
+    void rehash(){
+        
+        size=0;
+        HashMap<int, string>* temp = new HashMap<int, string>(capacity);
+        
+        capacity = capacity*2;
+
+        temp->arr = arr;
+        delete[] this->arr;
+        HashMap<int, string>* h = new HashMap<int, string>(capacity);
+        for (int i = 0; i < capacity/2; i++) {
+            if (arr[i] != NULL && arr[i]->key != -1){
+                temp->insertNode(arr[i]->key, arr[i]->value);
+            }
+        
+        }
     }
   
    
@@ -148,7 +175,7 @@ public:
 int main()
 {
   
-  HashMap<int, string>* h = new HashMap<int, string>;
+  HashMap<int, string>* h = new HashMap<int, string>(20);
     h->insertNode(1, "caleb");
     h->insertNode(5, "chandler");
     h->insertNode(3, "anna");
@@ -162,16 +189,28 @@ int main()
     h->insertNode(11, "abbey");
     h->insertNode(10, "ryan");
     h->insertNode(17, "jake");
+    h->insertNode(18, "class");
+    h->insertNode(19, "math");
+    h->insertNode(20, "soccer");
+    h->insertNode(21, "mom");
+    h->insertNode(6, "dad");
+    h->insertNode(14, "hero");
+    h->insertNode(35, "jake");
+    h->insertNode(39, "blah");
+    h->insertNode(40, "green");
+    h->insertNode(67, "sea");
+    h->insertNode(98, "snake");
 
 
 
 
 
+h->display();
 
-    vector<string> answer = h->get(7);
-    for (int i=0; i<answer.size(); i++){
-        cout<<answer[i]<< endl;
-    }
+    // vector<string> answer = h->get(7);
+    // for (int i=0; i<answer.size(); i++){
+    //     cout<<answer[i]<< endl;
+    // }
     
     
     
