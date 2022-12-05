@@ -1,4 +1,4 @@
-#include <iostream>>
+#include <iostream>
 using namespace std;
 
 #include <iostream>
@@ -13,13 +13,13 @@ class AVLTree
 private:
     struct TreeNode
     {
-        string ID;
+        string carData;
         string name;
         int height;
         TreeNode *left;
         TreeNode *right;
         // constructor
-        TreeNode(string name, string id, int height) : ID(id), name(name), height(height), left(nullptr), right(nullptr) {}
+        TreeNode(string name, string id, int height) : carData(id), name(name), height(height), left(nullptr), right(nullptr) {}
     };
 
     // Tree Attributes
@@ -27,49 +27,47 @@ private:
     TreeNode *root = nullptr;
 
     // Tree functions
-    TreeNode *insert(TreeNode *root, string name, string gatorID);
-
-    TreeNode *searchByIDHelper(TreeNode *root, string gatorID);
+    TreeNode *insert(TreeNode *root, string vehicleName, string carData);
 
     TreeNode *rotateLeft(TreeNode *node);
     TreeNode *rotateRight(TreeNode *node);
     TreeNode *rotateLeftRight(TreeNode *node);
     TreeNode *rotateRightLeft(TreeNode *node);
 
-    void helperInorder(TreeNode *helpRoot, vector<string> &inorder);
-    void helperBackwards(TreeNode *helpRoot, vector<string> &inorder);
+    void helperInorder(TreeNode *helpRoot, vector<string> &inorder, int &counter, int userInput);
+    void helperBackwards(TreeNode *helpRoot, vector<string> &inorder, int &counter, int userInput);
 
     int maxHeightOfChildren(TreeNode *node);
     int getBalanceFactor(TreeNode *root);
 
 public:
     ~AVLTree() { delete root; }
-    void printInorder();
-    void printBackwards();
-    void insertStudent(string name, string gatorID);
-    void searchStudentID(string gatorID);
+    void printInorder(int userInput);
+    void printBackwards(int userInput);
+    void insertStudent(string name, string carData);
+    void printVehicleComparison(int userInput);
 };
 
-AVLTree::TreeNode *AVLTree::insert(TreeNode *root, string name, string gatorID)
+AVLTree::TreeNode *AVLTree::insert(TreeNode *root, string vehicleName, string carData)
 {
-    long IDNumber = stol(gatorID);
+    long userCarData = stol(carData);
     if (root == nullptr)
     {
         cout << "successful\n";
-        return new TreeNode(name, gatorID, 0);
+        return new TreeNode(vehicleName, carData, 0);
     }
-    if (IDNumber == stol(root->ID))
+    if (userCarData == stol(root->carData))
     {
         cout << "unsuccessful\n";
         return root;
     }
-    else if (IDNumber < stol(root->ID))
+    else if (userCarData < stol(root->carData))
     {
-        root->left = insert(root->left, name, gatorID);
+        root->left = insert(root->left, vehicleName, carData);
     }
     else
     {
-        root->right = insert(root->right, name, gatorID);
+        root->right = insert(root->right, vehicleName, carData);
     }
 
     root->height = 1 + maxHeightOfChildren(root);
@@ -188,60 +186,81 @@ AVLTree::TreeNode *AVLTree::rotateRightLeft(TreeNode *node)
 }
 void print(vector<string> names)
 {
-    for (int i = 0; i < names.size(); i++)
+    if (names.size() == 0)
     {
-        cout << names[i];
-        if (i != names.size() - 1)
+        cout << "No vehicles found";
+    }
+    else
+    {
+        for (int i = 0; i < names.size(); i++)
         {
-            cout << ", ";
-        }
-        else
-        {
-            cout << endl;
+            cout << names[i];
+            if (i != names.size() - 1)
+            {
+                cout << ", ";
+            }
+            else
+            {
+                cout << endl;
+            }
         }
     }
 }
 
-void AVLTree::insertStudent(string name, string gatorID)
+void AVLTree::insertStudent(string vehicleName, string carData)
 {
-    this->root = insert(this->root, name, gatorID);
+    this->root = insert(this->root, vehicleName, carData);
 }
-void AVLTree::helperInorder(AVLTree::TreeNode *helpRoot, vector<string> &inorder)
+void AVLTree::helperInorder(AVLTree::TreeNode *helpRoot, vector<string> &inorder, int &counter, int userInput)
+{
+
+    if (helpRoot == NULL)
+        std::cout << "";
+    else
+    {
+        helperInorder(helpRoot->left, inorder, counter, userInput);
+        if (stoi(helpRoot->carData) > userInput && counter < 4)
+        {
+            counter++;
+            inorder.push_back(helpRoot->name);
+        }
+        helperInorder(helpRoot->right, inorder, counter, userInput);
+    }
+}
+void AVLTree::helperBackwards(AVLTree::TreeNode *helpRoot, vector<string> &backwards, int &counter, int userInput)
 {
     if (helpRoot == NULL)
         std::cout << "";
     else
     {
-        helperInorder(helpRoot->left, inorder);
-        inorder.push_back(helpRoot->name);
-        helperInorder(helpRoot->right, inorder);
+        helperBackwards(helpRoot->right, backwards, counter, userInput);
+        if (stoi(helpRoot->carData) < userInput && counter < 4)
+        {
+            counter++;
+            backwards.push_back(helpRoot->name);
+        }
+        helperBackwards(helpRoot->left, backwards, counter, userInput);
     }
 }
-void AVLTree::helperBackwards(AVLTree::TreeNode *helpRoot, vector<string> &backwards)
-{
-    if (helpRoot == NULL)
-        std::cout << "";
-    else
-    {
-        helperBackwards(helpRoot->right, backwards);
-        backwards.push_back(helpRoot->name);
-        helperBackwards(helpRoot->left, backwards);
-    }
-}
-void AVLTree::printInorder()
+void AVLTree::printInorder(int userInput)
 {
     vector<string> namesInorder;
-    helperInorder(this->root, namesInorder);
+    int counter = 0;
+    helperInorder(this->root, namesInorder, counter, userInput);
     print(namesInorder);
 }
-void AVLTree ::printBackwards()
+void AVLTree ::printBackwards(int userInput)
 {
     vector<string> namesBackwards;
-    helperInorder(this->root, namesBackwards);
+    int counter = 0;
+    helperInorder(this->root, namesBackwards, counter, userInput);
     print(namesBackwards);
 }
-int orderedMap()
+void AVLTree::printVehicleComparison(int userInput)
 {
 
-    return -1;
+    printBackwards(userInput);
+    cout << " << Your Vehicle << ";
+    printInorder(userInput);
 }
+
