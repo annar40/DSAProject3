@@ -24,7 +24,7 @@ unordered_map(int n){
   bucket_size = n;
   buckets = new list<pair<int,string>>[bucket_size];
   total_elements = 0;
-  max_load_factor =0.75;
+  max_load_factor = 0.75;
 }
 
 void insert(int key, string val){
