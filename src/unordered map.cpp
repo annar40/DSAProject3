@@ -7,162 +7,149 @@
 using namespace std;
 
 template <typename K, typename V>
-  
 
-class HashNode {
+class HashNode
+{
 public:
     V value;
     K key;
-  
-   
+
     HashNode(K key, V value)
     {
         this->value = value;
         this->key = key;
     }
 };
-  
 
 template <typename K, typename V>
-  
 
-class HashMap {
-    
-    HashNode<K, V>** arr;
+class HashMap
+{
+
+    HashNode<K, V> **arr;
     int capacity;
-    
+
     int size;
-    
-    
-  
+
 public:
     HashMap(int cap)
     {
-        
+
         capacity = cap;
         size = 0;
-        arr = new HashNode<K, V>*[capacity];
-  
-        
+        arr = new HashNode<K, V> *[capacity];
+
         for (int i = 0; i < capacity; i++)
             arr[i] = NULL;
-  
-        
-        
     }
-    
-    
+
     int hashCode(K key)
     {
         return key % capacity;
     }
-  
+
     // Function to add key value pair
     void insertNode(K key, V value)
     {
-        HashNode<K, V>* temp = new HashNode<K, V>(key, value);
-  
-        
+        HashNode<K, V> *temp = new HashNode<K, V>(key, value);
+
         int hashIndex = hashCode(key);
 
         float loadFactor = (float)size / (float)capacity;
         float maxLoad = 0.75f;
-        
-        
-        if (loadFactor >= maxLoad){
+
+        if (loadFactor >= maxLoad)
+        {
             rehash();
             return;
         }
 
         // find next free space
-        while (arr[hashIndex] != NULL && arr[hashIndex]->key != key ) {
+        while (arr[hashIndex] != NULL && arr[hashIndex]->key != key)
+        {
             hashIndex++;
             hashIndex %= capacity;
         }
-  
+
         // if new node to be inserted
         // increase the current size
-        if (arr[hashIndex] == NULL|| arr[hashIndex]->key == -1)
+        if (arr[hashIndex] == NULL || arr[hashIndex]->key == -1)
             size++;
         arr[hashIndex] = temp;
-        
     }
-    
-    void rehash(){
-        
-        size=0;
-        HashMap<int, string>* temp = new HashMap<int, string>(capacity);
-        
-        capacity = capacity*2;
 
-        temp->arr = arr;
-        for (int i = 0; i < capacity/2; i++) {
-            if (arr[i] != NULL && arr[i]->key != -1){
+    void rehash()
+    {
+
+        size = 0;
+        capacity = capacity * 2;
+        HashMap<int, string> *temp = new HashMap<int, string>(capacity);
+
+
+        for (int i = 0; i < capacity / 2; i++)
+        {
+            if (arr[i] != NULL && arr[i]->key != -1)
+            {
                 temp->insertNode(arr[i]->key, arr[i]->value);
             }
-        
         }
+        arr = temp->arr;
     }
-  
-   
-    
-  
-    
+
     vector<V> get(int key)
-    { 
-       HashNode<K, V>* temp1 = new HashNode<K, V>(0, "");
-       HashNode<K, V>* temp2 = new HashNode<K, V>(0, "");
+    {
+        HashNode<K, V> *temp1 = new HashNode<K, V>(0, "");
+        HashNode<K, V> *temp2 = new HashNode<K, V>(0, "");
         V prev1;
         V prev2;
-        vector <V> ans;
-        bool test= true;
-       
-         
-        
-        int count =0;
+        vector<V> ans;
+        bool test = true;
+
+        int count = 0;
         int counter = 0;
-  
-        
-        while(test) { 
-            if (arr[count] != NULL){
+
+        while (test)
+        {
+            if (arr[count] != NULL)
+            {
                 counter++;
-            
-                if (temp1->key < arr[count]->key && temp1->key < hashCode(key)){
+
+                if (temp1->key < arr[count]->key && temp1->key < hashCode(key))
+                {
                     temp1 = arr[count];
                 }
-                    
-                   
-                cout<<counter<<endl;
-            if (counter == size){
-                cout <<size<<endl;
-                test=false;
+
+                cout << counter << endl;
+                if (counter == size)
+                {
+                    cout << size << endl;
+                    test = false;
                 }
             }
-        count++;
+            count++;
         }
         ans.push_back(temp1->value);
-        
-        
+
         return ans;
-    
     }
-  
+
     // Return current size
     int sizeofMap()
     {
         return size;
     }
-  
+
     // Return true if size is 0
     bool isEmpty()
     {
         return size == 0;
     }
-  
+
     // Function to display the stored key value pairs
-     void display()
+    void display()
     {
-        for (int i = 0; i < capacity; i++) {
+        for (int i = 0; i < capacity; i++)
+        {
             if (arr[i] != NULL && arr[i]->key != -1)
                 cout << "key = " << arr[i]->key
                      << "  value = "
@@ -172,8 +159,8 @@ public:
 };
 int main()
 {
-  
-  HashMap<int, string>* h = new HashMap<int, string>(20);
+
+    HashMap<int, string> *h = new HashMap<int, string>(20);
     h->insertNode(1, "caleb");
     h->insertNode(5, "chandler");
     h->insertNode(3, "anna");
@@ -199,21 +186,12 @@ int main()
     h->insertNode(67, "sea");
     h->insertNode(98, "snake");
 
-
-
-
-
-h->display();
+    h->display();
 
     // vector<string> answer = h->get(7);
     // for (int i=0; i<answer.size(); i++){
     //     cout<<answer[i]<< endl;
     // }
-    
-    
-    
+
     return 0;
-
-
-
 }
