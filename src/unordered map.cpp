@@ -96,8 +96,6 @@ public:
         capacity = capacity*2;
 
         temp->arr = arr;
-        delete[] this->arr;
-        HashMap<int, string>* h = new HashMap<int, string>(capacity);
         for (int i = 0; i < capacity/2; i++) {
             if (arr[i] != NULL && arr[i]->key != -1){
                 temp->insertNode(arr[i]->key, arr[i]->value);
