@@ -85,6 +85,8 @@ int main()
        cout << "Your input was not recognized." << endl;
    }
 
+   cout << "IT PUSHED RIGHT" << endl;
+
    return 0;
 }
 
