@@ -95,7 +95,7 @@ public:
         arr = temp->arr;
     }
 
-    vector<V> get(int userInputData)
+    vector<HashNode<K,V>> get(int userInputData)
     {
         HashNode<K, V> *temp1 = new HashNode<K, V>(0, "");
         HashNode<K, V> *temp2 = new HashNode<K, V>(0, "");
@@ -121,7 +121,7 @@ public:
                 {
                     counter++;
                     
-                    cout << "value in arr " << arr[count]->key << endl;
+                    
 
                     if (arr[count]->key >= temp1->key && arr[count]->key < userInputData)
                     {
@@ -156,11 +156,12 @@ public:
         post1 = temp3->value;
         post2 = temp4->value;
 
-        ans.push_back(prev2);
-        ans.push_back(prev1);
+
+        ans.push_back(temp2);
+        ans.push_back(temp1);
         
-        ans.push_back(post1);
-        ans.push_back(post2);
+        ans.push_back(temp3);
+        ans.push_back(temp4);
         
         
         return ans;
@@ -178,15 +179,41 @@ public:
         return size == 0;
     }
     void print(int search){
-    vector<string> answer = get(search);
-        
-    for (int i=0; i<answer.size(); i++){
-        if(i == 3)
-        {
-            cout << "Your Value: "<< search<<" ";
-        }
-        cout<<answer[i] << " ";
+    vector<HashNode<K,V>> answer = get(search);
+
+    cout << "Check out how your car stacks up to similar vehicles!\n\n";
+    if (answer[0]== NULL && answer[1]== NULL){
+        cout << "------------------------------------" << endl;
+       cout << "No vehicles with lower values found! \n";
+       cout << "------------------------------------" << endl;
     }
+    if (answer[2]== NULL && answer[3]== NULL){
+        cout << "------------------------------------" << endl;
+       cout << "No vehicles with Greater values found! \n";
+       cout << "------------------------------------" << endl;
+    }else{
+        cout << "------------------------------------" << endl;
+       cout << "Vehicles with lower values than your car: ";
+       for (int i=0; i<=1; i++){
+        cout<< answer[i]->value <<" with a value of: "<< answer[i]->key<<endl;
+       }
+
+    cout << "    ----------      " << endl;
+    cout << "  /            \\      " << endl;
+    cout << " /              \\      " << endl;
+    cout << "|  Your car: " << search << "  |" << endl;
+    cout << " \\              /      " << endl;
+    cout << "  \\            /      " << endl;
+    cout << "    ----------      " << endl;
+    cout << "------------------------------------" << endl;
+
+       for (int i=2; i<=3; i++){
+        cout<< answer[i]->value <<" with a value of: "<< answer[i]->key<<endl;
+       }
+
+
+    }
+    
     }
 
 
