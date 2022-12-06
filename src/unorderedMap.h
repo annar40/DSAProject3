@@ -183,8 +183,8 @@ public:
 
     cout << "Check out how your car stacks up to similar vehicles!\n\n";
 
-    
-    if (answer[0]== 0 && answer[1]== 0){
+
+    if (answer[0]-> key== 0 && answer[1]-> key== 0){
         cout << "------------------------------------" << endl;
        cout << "No vehicles with lower values found! \n";
        cout << "------------------------------------" << endl;
@@ -206,7 +206,7 @@ public:
 
 
     }
-    if (answer[2]== 0 && answer[3]== 0){
+    if (answer[2]-> key == 0 && answer[3]->key == 0){
         cout << "------------------------------------" << endl;
        cout << "No vehicles with Greater values found! \n";
        cout << "------------------------------------" << endl;
