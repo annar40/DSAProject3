@@ -95,7 +95,7 @@ public:
         arr = temp->arr;
     }
 
-    vector<HashNode<K,V>*> get(int userInputData)
+    vector<HashNode<K, V> *> get(int userInputData)
     {
         HashNode<K, V> *temp1 = new HashNode<K, V>(0, "");
         HashNode<K, V> *temp2 = new HashNode<K, V>(0, "");
@@ -107,7 +107,7 @@ public:
         V post1;
         V post2;
 
-        vector<HashNode<K, V>*> ans;
+        vector<HashNode<K, V> *> ans;
         bool test = true;
 
         int count = 0;
@@ -120,8 +120,6 @@ public:
                 if (counter < size)
                 {
                     counter++;
-                    
-                    
 
                     if (arr[count]->key >= temp1->key && arr[count]->key < userInputData)
                     {
@@ -137,11 +135,10 @@ public:
 
                         temp3 = arr[count];
                     }
-                    if(arr[count]->key > temp3->key &&  arr[count]->key < temp4->key)
+                    if (arr[count]->key > temp3->key && arr[count]->key < temp4->key)
                     {
                         temp4 = arr[count];
                     }
-                
                 }
                 else
                 {
@@ -156,14 +153,12 @@ public:
         post1 = temp3->value;
         post2 = temp4->value;
 
-
         ans.push_back(temp2);
         ans.push_back(temp1);
-        
+
         ans.push_back(temp3);
         ans.push_back(temp4);
-        
-        
+
         return ans;
     }
 
@@ -178,47 +173,53 @@ public:
     {
         return size == 0;
     }
-    void print(int search){
-    vector<HashNode<K,V>*> answer = get(search);
+    void print(int search)
+    {
+        vector<HashNode<K, V> *> answer = get(search);
 
-    cout << "Check out how your car stacks up to similar vehicles!\n\n";
+        cout << "Check out how your car stacks up to similar vehicles!\n\n";
 
-
-    if (answer[0]-> key== 0 && answer[1]-> key== 0){
+        if (answer[0]->key == 0 && answer[1]->key == 0)
+        {
+            cout << "------------------------------------" << endl;
+            cout << "No vehicles with lower values found! \n";
+            cout << "------------------------------------" << endl
+                 << endl;
+        }
+        else
+        {
+            cout << "------------------------------------" << endl;
+            cout << "Vehicles with lower values than your car: " << endl
+                 << endl;
+            for (int i = 0; i <= 1; i++)
+            {
+                cout << answer[i]->value << " with a value of: " << answer[i]->key << endl;
+            }
+        }
+        cout << "    ----------      " << endl;
+        cout << "  /            \\      " << endl;
+        cout << " /              \\      " << endl;
+        cout << "|  Your car: " << search << "  |" << endl;
+        cout << " \\              /      " << endl;
+        cout << "  \\            /      " << endl;
+        cout << "    ----------      " << endl;
         cout << "------------------------------------" << endl;
-       cout << "No vehicles with lower values found! \n";
-       cout << "------------------------------------" << endl;
-    }else { 
-        cout << "------------------------------------" << endl;
-       cout << "Vehicles with lower values than your car: "<< endl;
-       for (int i=0; i<=1; i++){
-        cout<< answer[i]->value <<" with a value of: "<< answer[i]->key<<endl;
-       }
-
-       cout << "    ----------      " << endl;
-    cout << "  /            \\      " << endl;
-    cout << " /              \\      " << endl;
-    cout << "|  Your car: " << search << "  |" << endl;
-    cout << " \\              /      " << endl;
-    cout << "  \\            /      " << endl;
-    cout << "    ----------      " << endl;
-    cout << "------------------------------------" << endl;
-
-
-    }
-    if (answer[2]-> key == 100000000 && answer[3]->key == 100000000){
-        cout << "------------------------------------" << endl;
-       cout << "No vehicles with Greater values found! \n";
-       cout << "------------------------------------" << endl;
-    }else{
-        cout << "Vehicles with greater values than your car: \n";
-            for (int i=2; i<=3; i++){
-        cout<< answer[i]->value <<" with a value of: "<< answer[i]->key<<endl;
-       }
-
-    }
-      
     
+    if (answer[2]->key == 100000000 && answer[3]->key == 100000000)
+    {
+        cout << "------------------------------------" << endl;
+        cout << "No vehicles with Greater values found! \n";
+        cout << "------------------------------------" << endl;
     }
-
-};
+    else
+    {
+        cout << "Vehicles with greater values than your car: \n"
+             << endl;
+        for (int i = 2; i <= 3; i++)
+        {
+            cout << answer[i]->value << " with a value of: " << answer[i]->key << endl;
+        }
+    }
+}
+}
+;

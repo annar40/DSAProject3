@@ -187,7 +187,7 @@ void print(vector<string> names)
    }
    else
    {
-       cout << "Vehicles with greater values than your car: \n";
+       cout << "Vehicles with greater values than your car: \n"<<endl;
        for (int i = 0; i < names.size(); i++)
        {
            cout << names[i];
@@ -214,7 +214,7 @@ void printLessThanVals(vector<string> names)
    else
    {
        cout << "------------------------------------" << endl;
-       cout << "Vehicles with lower values than your car: "<<endl;
+       cout << "Vehicles with lower values than your car: "<<endl<<endl;
        for (int i = names.size()-1; i >= 0; i--)
        {
            cout << names[i];
@@ -244,7 +244,7 @@ void AVLTree::helperInorder(AVLTree::TreeNode *helpRoot, vector<string> &inorder
    else
    {
        helperInorder(helpRoot->left, inorder, counter, userInput);
-       if (stoi(helpRoot->carData) > userInput && counter < 4)
+       if (stoi(helpRoot->carData) > userInput && counter < 2)
        {
            counter++;
            string temp = helpRoot->name;
@@ -262,7 +262,7 @@ void AVLTree::helperBackwards(AVLTree::TreeNode *helpRoot, vector<string> &backw
    else
    {
        helperBackwards(helpRoot->right, backwards, counter, userInput);
-       if (stoi(helpRoot->carData) < userInput && counter < 4)
+       if (stoi(helpRoot->carData) < userInput && counter < 2)
        {
            counter++;
            string temp = helpRoot->name;
