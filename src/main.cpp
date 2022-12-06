@@ -110,7 +110,7 @@ int main()
         {
             cout << "Your input was not recognized." << endl;
         }
-        cout << "\n Thanks for comparing with us!"<< endl<< "Enter 1 to compare again. \nEnter any other key to exit." << endl;
+        cout << "\nThanks for comparing with us!"<< endl<< "Enter 1 to compare again. \nEnter any other key to exit." << endl;
         int exitStatus;
         cin >> exitStatus;
         if(exitStatus!=1)

@@ -95,7 +95,7 @@ public:
         arr = temp->arr;
     }
 
-    vector<HashNode<K,V>> get(int userInputData)
+    vector<HashNode<K,V>*> get(int userInputData)
     {
         HashNode<K, V> *temp1 = new HashNode<K, V>(0, "");
         HashNode<K, V> *temp2 = new HashNode<K, V>(0, "");
@@ -107,7 +107,7 @@ public:
         V post1;
         V post2;
 
-        vector<V> ans;
+        vector<HashNode<K, V>*> ans;
         bool test = true;
 
         int count = 0;
@@ -179,7 +179,7 @@ public:
         return size == 0;
     }
     void print(int search){
-    vector<HashNode<K,V>> answer = get(search);
+    vector<HashNode<K,V>*> answer = get(search);
 
     cout << "Check out how your car stacks up to similar vehicles!\n\n";
     if (answer[0]== NULL && answer[1]== NULL){
