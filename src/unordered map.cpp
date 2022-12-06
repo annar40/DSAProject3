@@ -73,7 +73,7 @@ public:
 
         // if new node to be inserted
         // increase the current size
-        if (arr[hashIndex] == NULL || arr[hashIndex]->key == -1)
+        if (arr[hashIndex] == NULL)
             size++;
         arr[hashIndex] = temp;
     }
@@ -81,10 +81,9 @@ public:
     void rehash()
     {
 
-        size = 0;
+        // size = 0;
         capacity = capacity * 2;
         HashMap<int, string> *temp = new HashMap<int, string>(capacity);
-
 
         for (int i = 0; i < capacity / 2; i++)
         {
@@ -96,7 +95,7 @@ public:
         arr = temp->arr;
     }
 
-    vector<V> get(int key)
+    vector<V> get(int userInputData)
     {
         HashNode<K, V> *temp1 = new HashNode<K, V>(0, "");
         HashNode<K, V> *temp2 = new HashNode<K, V>(0, "");
@@ -112,24 +111,29 @@ public:
         {
             if (arr[count] != NULL)
             {
-                counter++;
-
-                if (temp1->key < arr[count]->key && temp1->key < hashCode(key))
+                if (counter < size)
                 {
-                    temp1 = arr[count];
+                    counter++;
+                    cout << temp1->key << endl;
+                    cout << "value in arr " << arr[count]->key << endl;
+                    // if((int)(temp1->key) < userInputData)
+
+                    if ( arr[count]->key > temp1->key && arr[count]->key < userInputData)
+                    {
+                        temp1 = arr[count];
+                    }
                 }
-
-                cout << counter << endl;
-                if (counter == size)
+                else
                 {
-                    cout << size << endl;
                     test = false;
                 }
+                // cout << counter << endl;
             }
+
             count++;
         }
         ans.push_back(temp1->value);
-
+        cout << "temp1 value: " << temp1->value << endl;
         return ans;
     }
 
@@ -172,7 +176,6 @@ int main()
     h->insertNode(9, "catherine");
     h->insertNode(12, "korynn");
     h->insertNode(11, "abbey");
-    h->insertNode(10, "ryan");
     h->insertNode(17, "jake");
     h->insertNode(18, "class");
     h->insertNode(19, "math");
@@ -188,7 +191,7 @@ int main()
 
     h->display();
 
-    // vector<string> answer = h->get(7);
+    vector<string> answer = h->get(20);
     // for (int i=0; i<answer.size(); i++){
     //     cout<<answer[i]<< endl;
     // }
