@@ -182,23 +182,20 @@ public:
     vector<HashNode<K,V>*> answer = get(search);
 
     cout << "Check out how your car stacks up to similar vehicles!\n\n";
-    if (answer[0]== NULL && answer[1]== NULL){
+
+    
+    if (answer[0]== 0 && answer[1]== 0){
         cout << "------------------------------------" << endl;
        cout << "No vehicles with lower values found! \n";
        cout << "------------------------------------" << endl;
-    }
-    if (answer[2]== NULL && answer[3]== NULL){
+    }else { 
         cout << "------------------------------------" << endl;
-       cout << "No vehicles with Greater values found! \n";
-       cout << "------------------------------------" << endl;
-    }else{
-        cout << "------------------------------------" << endl;
-       cout << "Vehicles with lower values than your car: ";
+       cout << "Vehicles with lower values than your car: "<< endl;
        for (int i=0; i<=1; i++){
         cout<< answer[i]->value <<" with a value of: "<< answer[i]->key<<endl;
        }
 
-    cout << "    ----------      " << endl;
+       cout << "    ----------      " << endl;
     cout << "  /            \\      " << endl;
     cout << " /              \\      " << endl;
     cout << "|  Your car: " << search << "  |" << endl;
@@ -207,12 +204,20 @@ public:
     cout << "    ----------      " << endl;
     cout << "------------------------------------" << endl;
 
-       for (int i=2; i<=3; i++){
+
+    }
+    if (answer[2]== 0 && answer[3]== 0){
+        cout << "------------------------------------" << endl;
+       cout << "No vehicles with Greater values found! \n";
+       cout << "------------------------------------" << endl;
+    }else{
+        cout << "Vehicles with greater values than your car: \n";
+            for (int i=2; i<=3; i++){
         cout<< answer[i]->value <<" with a value of: "<< answer[i]->key<<endl;
        }
 
-
     }
+      
     
     }
 
