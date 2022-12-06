@@ -206,7 +206,7 @@ public:
 
 
     }
-    if (answer[2]-> key == 0 && answer[3]->key == 0){
+    if (answer[2]-> key == 100000000 && answer[3]->key == 100000000){
         cout << "------------------------------------" << endl;
        cout << "No vehicles with Greater values found! \n";
        cout << "------------------------------------" << endl;
