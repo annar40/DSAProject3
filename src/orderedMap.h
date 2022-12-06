@@ -187,13 +187,13 @@ void print(vector<string> names)
    }
    else
    {
-       cout << "Vehicles with greater values than your car: ";
+       cout << "Vehicles with greater values than your car: \n";
        for (int i = 0; i < names.size(); i++)
        {
            cout << names[i];
            if (i != names.size() - 1)
            {
-               cout << " ||| ";
+               cout << endl;;
            }
            else
            {
@@ -214,13 +214,13 @@ void printLessThanVals(vector<string> names)
    else
    {
        cout << "------------------------------------" << endl;
-       cout << "Vehicles with lower values than your car: ";
+       cout << "Vehicles with lower values than your car: "<<endl;
        for (int i = names.size()-1; i >= 0; i--)
        {
            cout << names[i];
            if (i != 0)
            {
-               cout << " ||| ";
+               cout << endl;
            }
            else
            {

@@ -11,7 +11,7 @@ string MenuAndInput()
     string _input;
 
     cout << "_________________________________________________________________________________" << endl;
-    cout << "|                      Welcome to <insert project name here>                    |" << endl;
+    cout << "|                      Welcome to Kapoor's Blue Book                            |" << endl;
     cout << "|                                                                               |" << endl;
     cout << "| Please choose the characteristic of your car you would like to compare today! |" << endl;
     cout << "|                                                                               |" << endl;
@@ -28,7 +28,6 @@ string MenuAndInput()
 int main()
 {
 
-    /*
     AVLTree MPGTree;
     AVLTree HPTree;
     HashMap<int, string> *MPGHash = new HashMap<int, string>(20);
@@ -37,92 +36,87 @@ int main()
     string name;
     string mpg;
     string hp;
-    ifstream carFile("******FILE NAME HERE******");
-    if (carFile.is_open()) {
+    bool stop = false;
+
+    ifstream carFile("C:/Users/arude/OneDrive/Desktop/cars.csv");
+    if (carFile.is_open())
+    {
         string carInfo;
         getline(carFile, carInfo);
-        while (getline(carFile, carInfo)) {
+        while (getline(carFile, carInfo))
+        {
             istringstream carStream(carInfo);
             getline(carStream, name, ',');
             getline(carStream, mpg, ',');
             getline(carStream, hp, ',');
-            MPGTree.insert(name, mpg);
-            HPTree.insert(name, hp);
+            MPGTree.insertCar(name, mpg);
+            HPTree.insertCar(name, hp);
             MPGHash->insertNode(stoi(mpg), name);
             HPHash->insertNode(stoi(hp), name);
-
-
-
         }
     }
-    */
+    else
+    {
+        cout << "File failed to open.";
+    }
 
     string input;
 
     int valueInput;
-
-    AVLTree MPGTree;
-    AVLTree HPTree;
-    HashMap<int, string> *MPGHash = new HashMap<int, string>(20);
-    // MPGHash->insertNode(1, "caleb");
-    // MPGHash->insertNode(6, "eb");
-
-    // MPGHash->insertNode(11, "abbey");
-    // MPGHash->insertNode(17, "jake");
-    // MPGHash->insertNode(19, "class");
-    // MPGHash->insertNode(19, "math");
-    // MPGHash->insertNode(20, "soccer");
-    // MPGHash->insertNode(21, "mom");
-    // MPGHash->insertNode(6, "dad");
-    // MPGHash->insertNode(14, "hero");
-    // MPGHash->insertNode(39, "blah");
-    // MPGHash->insertNode(40, "green");
-    // MPGHash->insertNode(67, "sea");
-    // MPGHash->insertNode(98, "snake");
-
-
-    // vector<string> answer = MPGHash->get(20);
-    // for (int i=0; i<answer.size(); i++){
-    //     if(i == 3)
-    //     {
-    //         cout << "Your Value: ";
-    //     }
-    //     cout<<answer[i] << " ";
-    // }
-
-
-
-
-
-
-    MPGTree.insertCar("M", "8");
-    MPGTree.insertCar("L", "9");
-    MPGTree.insertCar("T", "10");
-    MPGTree.insertCar("G", "3");
-    MPGTree.insertCar("Y", "2");
-    MPGTree.insertCar("A", "1");
-
-    input = MenuAndInput();
-
-    if (input == "mpg")
+    int dataStructure;
+    while (!stop)
     {
-        cout << endl;
-        cout << "What is the MPG of your car?" << endl;
-        cin >> valueInput;
-        MPGTree.printVehicleComparison(valueInput);
-    }
-    else if (input == "hp")
-    {
-        cout << endl;
-        cout << "What is the HP of your car?" << endl;
-        cin >> valueInput;
-        // HPTree.printVehicleComparison(stoi(input));
-    }
+        input = MenuAndInput();
 
-    else
-    {
-        cout << "Your input was not recognized." << endl;
-    }
+        if (input == "mpg")
+        {
+            cout << endl;
+            cout << "What is the MPG of your car?" << endl;
+            cin >> valueInput;
+            cout << "Select a data structure: " << endl
+                 << "1. Ordered Map" << endl
+                 << "2. Unordered Map" << endl;
+            cin >> dataStructure;
+            if (dataStructure == 1)
+            {
 
+                MPGTree.printVehicleComparison(valueInput);
+            }
+            else
+            {
+                MPGHash->print(valueInput);
+            }
+        }
+        else if (input == "hp")
+        {
+            cout << endl;
+            cout << "What is the HP of your car?" << endl;
+            cin >> valueInput;
+            cout << "Select a data structure: " << endl
+                 << "1. Ordered Map" << endl
+                 << "2. Unordered Map" << endl;
+            cin >> dataStructure;
+            if (dataStructure == 1)
+            {
+
+                HPTree.printVehicleComparison(valueInput);
+            }
+            else
+            {
+                HPHash->print(valueInput);
+            }
+        }
+        else
+        {
+            cout << "Your input was not recognized." << endl;
+        }
+        cout << "\n Thanks for comparing with us!"<< endl<< "Enter 1 to compare again. \nEnter any other key to exit." << endl;
+        int exitStatus;
+        cin >> exitStatus;
+        if(exitStatus!=1)
+        {
+            stop = true;
+        }
+    }
     return 0;
 }
