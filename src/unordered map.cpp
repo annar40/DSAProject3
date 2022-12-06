@@ -116,10 +116,14 @@ public:
                     counter++;
                     cout << temp1->key << endl;
                     cout << "value in arr " << arr[count]->key << endl;
-                    // if((int)(temp1->key) < userInputData)
 
-                    if ( arr[count]->key > temp1->key && arr[count]->key < userInputData)
+                    if (arr[count]->key >= temp1->key && arr[count]->key < userInputData)
                     {
+
+                        if (temp2->key <= temp1->key)
+                        {
+                            temp2 = temp1;
+                        }
                         temp1 = arr[count];
                     }
                 }
@@ -127,13 +131,18 @@ public:
                 {
                     test = false;
                 }
-                // cout << counter << endl;
             }
 
             count++;
         }
-        ans.push_back(temp1->value);
-        cout << "temp1 value: " << temp1->value << endl;
+        prev1 = temp1->value;
+        prev2 = temp2->value;
+        ans.push_back(prev2);
+        ans.push_back(prev1);
+
+        cout << "temp1 value: " << prev1<< endl;
+        cout << "temp2 value: " << prev2 << endl;
+
         return ans;
     }
 
@@ -177,13 +186,12 @@ int main()
     h->insertNode(12, "korynn");
     h->insertNode(11, "abbey");
     h->insertNode(17, "jake");
-    h->insertNode(18, "class");
+    h->insertNode(19, "class");
     h->insertNode(19, "math");
     h->insertNode(20, "soccer");
     h->insertNode(21, "mom");
     h->insertNode(6, "dad");
     h->insertNode(14, "hero");
-    h->insertNode(35, "jake");
     h->insertNode(39, "blah");
     h->insertNode(40, "green");
     h->insertNode(67, "sea");
