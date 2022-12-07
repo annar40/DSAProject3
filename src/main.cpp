@@ -3,7 +3,8 @@
 #include <fstream>
 #include "orderedMap.h"
 #include "unorderedMap.h"
-
+#include <ctime>
+#include <iomanip>
 using namespace std;
 
 string MenuAndInput()
@@ -27,7 +28,7 @@ string MenuAndInput()
 
 int main()
 {
-
+    clock_t start, end;
     AVLTree MPGTree;
     AVLTree HPTree;
     HashMap<int, string> *MPGHash = new HashMap<int, string>(20);
@@ -37,7 +38,7 @@ int main()
     string mpg;
     string hp;
     bool stop = false;
-
+    
     ifstream carFile("C:/Users/arude/OneDrive/Desktop/cars.csv");
     if (carFile.is_open())
     {
@@ -80,11 +81,17 @@ int main()
             if (dataStructure == 1)
             {
 
+                start = clock();
                 MPGTree.printVehicleComparison(valueInput);
+                end = clock();
+                cout << "Execution time: " << fixed << double(end - start) / 1000000 << setprecision(5) << " seconds." << endl;
             }
             else
             {
+                start = clock();
                 MPGHash->print(valueInput);
+                end = clock();
+                cout << "Execution time: " << fixed << double(end - start) / 1000000 << setprecision(5) << " seconds." << endl;
             }
         }
         else if (input == "hp")
@@ -98,25 +105,32 @@ int main()
             cin >> dataStructure;
             if (dataStructure == 1)
             {
-
+                start = clock();
                 HPTree.printVehicleComparison(valueInput);
+                end = clock();
+                cout << "Execution time: " << fixed << double(end - start) / 1000000 << setprecision(5)<< " seconds." << endl;
             }
             else
             {
+                start = clock();
                 HPHash->print(valueInput);
+                end = clock();
+                cout << "Execution time: " << fixed << double(end - start) / 1000000 << setprecision(5) << " seconds." << endl;
             }
         }
         else
         {
             cout << "Your input was not recognized." << endl;
         }
-        cout << "\nThanks for comparing with us!"<< endl<< "Enter 1 to compare again. \nEnter any other key to exit." << endl;
+        cout << "\nThanks for comparing with us!" << endl
+             << "Enter 1 to compare again. \nEnter any other key to exit." << endl;
         int exitStatus;
         cin >> exitStatus;
-        if(exitStatus!=1)
+        if (exitStatus != 1)
         {
             stop = true;
         }
     }
+
     return 0;
 }
